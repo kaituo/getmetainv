@@ -61,7 +61,9 @@ Now you can use our tool to generate meta-invariants.  Suppose you want to gener
         ...
     </batchtest> 
 </junit> 
-When using Maven,you can use the following sample  pom.xml file:
+}}}
+     * When using Maven,you can use the following sample  pom.xml file:
+{{{
 <plugin>
     <artifactId>maven-surefire-plugin</artifactId>
     <configuration>
