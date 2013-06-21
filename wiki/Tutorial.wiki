@@ -41,7 +41,7 @@ Now you can use our tool to generate meta-invariants.  Suppose you want to gener
     `javac -g ...`
  # Run the unit tests on ABC using the Chicory front end: 
     `java daikon.Chicory [chicory-options] MyTestClass`
-Make sure all the required library and class files to run ABC are included in the classpath.  Chicory can be configured as described [http://groups.csail.mit.edu/pag/daikon/download/doc/daikon.html#Chicory-options here].
+   Make sure all the required library and class files to run ABC are included in the classpath.  Chicory can be configured as described [http://groups.csail.mit.edu/pag/daikon/download/doc/daikon.html#Chicory-options here].
 It is worth noting Chicory tries to record every variable values in a data file.  When a large number of test cases need to be run, Chicory can easily consume a large chunk of harddisk space in compressed format.  It is helpful to use the option –ppt-select-pattern and –ppt-omit-pattern here to only record variables values for the methods you are interested in.
 If you use a test framework (such as JUnit and Maven Surefire plug-in), you may not be able to directly invoke daikon.Chicory because you need to invoke the test driver first.    You can then load the "Java agent" to JVM which provides instrumentation access to Chicory (it's all inside $GetMetaInvDIR/lib/ChicoryPremain.jar).   Specifically:
 When using JUnit command line driver org.junit.runner.JUnitCore, run Chicory via the command
