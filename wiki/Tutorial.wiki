@@ -42,11 +42,12 @@ Now you can use our tool to generate meta-invariants.  Suppose you want to gener
  # Run the unit tests on ABC using the Chicory front end: 
     `java daikon.Chicory [chicory-options] MyTestClass`
    Make sure all the required library and class files to run ABC are included in the classpath.  Chicory can be configured as described [http://groups.csail.mit.edu/pag/daikon/download/doc/daikon.html#Chicory-options here].
-It is worth noting Chicory tries to record every variable values in a data file.  When a large number of test cases need to be run, Chicory can easily consume a large chunk of harddisk space in compressed format.  It is helpful to use the option –ppt-select-pattern and –ppt-omit-pattern here to only record variables values for the methods you are interested in.
-If you use a test framework (such as JUnit and Maven Surefire plug-in), you may not be able to directly invoke daikon.Chicory because you need to invoke the test driver first.    You can then load the "Java agent" to JVM which provides instrumentation access to Chicory (it's all inside $GetMetaInvDIR/lib/ChicoryPremain.jar).   Specifically:
-When using JUnit command line driver org.junit.runner.JUnitCore, run Chicory via the command
-java  -javaagent:$GetMetaInvDIR/lib/ChicoryPremain.jar=[chicory-options]  org.junit.runner.JUnitCore testclasses
-When using the <junit> element in a build.xml script, it is important to make fork “on” to run the tests in a separate VM. Also, you may need to specify the locations of required jars using a <classpath> element if the test subject program overrides any setting of the CLASSPATH environment variable.   The following is a sample:
+   It is worth noting Chicory tries to record every variable values in a data file.  When a large number of test cases need to be run, Chicory can easily consume a large chunk of harddisk space in compressed format.  It is helpful to use the option –ppt-select-pattern and –ppt-omit-pattern here to only record variables values for the methods you are interested in.
+   If you use a test framework (such as JUnit and Maven Surefire plug-in), you may not be able to directly invoke daikon.Chicory because you need to invoke the test driver first. You can then load the "Java agent" to JVM which provides instrumentation access to Chicory (it's all inside $GetMetaInvDIR/lib/ChicoryPremain.jar). Specifically:
+ * When using JUnit command line driver org.junit.runner.JUnitCore, run Chicory via the command
+   `java  -javaagent:$GetMetaInvDIR/lib/ChicoryPremain.jar=[chicory-options]  org.junit.runner.JUnitCore testclasses`
+ * When using the <junit> element in a build.xml script, it is important to make fork “on” to run the tests in a separate VM. Also, you may need to specify the locations of required jars using a <classpath> element if the test subject program overrides any setting of the CLASSPATH environment variable. The following is a sample:
+{{{
 <junit fork="on" forkmode="perTest" > 
     <classpath> 
         <pathelement location="${jdk.tools.jar}"/> 
@@ -101,8 +102,8 @@ When using Maven,you can use the following sample  pom.xml file:
         </additionalClasspathElements>
     </configuration>
 </plugin>
-
-3. Normalise parameters so that all parameters's name in the dtrace file are based on their position (1st, 2nd, ...) in the parameter list.   You must have awk installed to run our awk script.
+}}}
+ # Normalise parameters so that all parameters's name in the dtrace file are based on their position (1st, 2nd, ...) in the parameter list.   You must have awk installed to run our awk script.
 zcat MyTestClass.dtrace.gz | gawk -f $GetMetaInvDIR/normalise-parameters.awk | gzip > NMyTestClass.dtrace.gz
-4. Pass the normalised dtrace file to our modified Daikon and use –suppress_redundant to invoke Simplify automatic theorem prover.  You can supply multiple dtrace files to our tool as well. See Daikon's configuration options ( http://groups.csail.mit.edu/pag/daikon/download/doc/daikon.html#Configuration-options).  Our modified Daikon prints the inferred meta-invariants and invariants to standard output.  The original invariants are also printed.
+ # Pass the normalised dtrace file to our modified Daikon and use –suppress_redundant to invoke Simplify automatic theorem prover.  You can supply multiple dtrace files to our tool as well. See Daikon's configuration options ( http://groups.csail.mit.edu/pag/daikon/download/doc/daikon.html#Configuration-options).  Our modified Daikon prints the inferred meta-invariants and invariants to standard output.  The original invariants are also printed.
 java daikon.Daikon --suppress_redundant [daikon-options] NMyTestClass.dtrace.gz
