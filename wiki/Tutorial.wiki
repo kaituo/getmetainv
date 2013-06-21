@@ -13,12 +13,12 @@ Add your content here.  Format your content with:
   * Automatic links to other wiki pages
 
 
-Installation
-1.  Choose the directory where you want to install our tool for inferring meta-invariants; we'll call this the GetMetaInvParent directory. In this directory, download and unpack getmetainv-binary-0.1.tar.gz.
-tar zxf getmetainv-binary-0.1.tar.gz
-2. Download the Simplfy executable, change the executable's name to Simplify and put it into the directory $SimplifyDIR.  Make sure that execute permissions are set via this command: 
-% chmod a+x Simplify 
-3. You must install the JDK in your operating system. The Java 6 is recommended.
+= Installation =
+# Choose the directory where you want to install our tool for inferring meta-invariants; we'll call this the GetMetaInvParent directory. In this directory, download and unpack getmetainv-binary-0.1.tar.gz.
+`tar zxf getmetainv-binary-0.1.tar.gz`
+# Download the Simplfy executable, change the executable's name to Simplify and put it into the directory $SimplifyDIR.  Make sure that execute permissions are set via this command: 
+`chmod a+x Simplify` 
+# You must install the JDK in your operating system. The Java 6 is recommended.
 4. Place the following five commands in your shell initialization file: set two environment variables, source a Daikon startup file, and update CLASSPATH and PATH environment variable.  For example,  edit ~/.bashrc or ~/.bash_profile if you use the sh or bash shell or their variants:
           # The full pathname of the directory that contains GetMetaInv
           export GetMetaInvDIR=...
