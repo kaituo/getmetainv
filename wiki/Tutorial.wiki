@@ -1,0 +1,104 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Add your content here.
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
+
+
+Installation
+1.  Choose the directory where you want to install our tool for inferring meta-invariants; we'll call this the GetMetaInvParent directory. In this directory, download and unpack getmetainv-binary-0.1.tar.gz.
+tar zxf getmetainv-binary-0.1.tar.gz
+2. Download the Simplfy executable, change the executable's name to Simplify and put it into the directory $SimplifyDIR.  Make sure that execute permissions are set via this command: 
+% chmod a+x Simplify 
+3. You must install the JDK in your operating system. The Java 6 is recommended.
+4. Place the following five commands in your shell initialization file: set two environment variables, source a Daikon startup file, and update CLASSPATH and PATH environment variable.  For example,  edit ~/.bashrc or ~/.bash_profile if you use the sh or bash shell or their variants:
+          # The full pathname of the directory that contains GetMetaInv
+          export GetMetaInvDIR=...
+	    # The full pathname of the directory that contains Simplify
+	    export SimplifyDIR=...
+          # The full pathname of the directory that contains the Java JDK
+          export JAVA_HOME=...
+          source $GetMetaInvDIR/scripts/daikon.bashrc
+          export CLASSPATH=$GetMetaInvDIR/getmetainv.jar:$GetMetaInvDIR/lib:$GetMetaInvDIR/lib/bcel.jar:$GetMetaInvDIR/lib/java-getopt.jar:$GetMetaInvDIR/lib/checkers-quals.jar:$GetMetaInvDIR/lib/commons-io.jar:$GetMetaInvDIR/lib/plume.jar:$GetMetaInvDIR/lib/typequals.jar:$GetMetaInvDIR/lib/utilMDE-20091207.jar:$JAVA_HOME/lib/tools.jar:.:$CLASSPATH 
+		export PATH=$SimplifyDIR:$JAVA_HOME/bin:$PATH
+After editing your shell initialization file, either execute the commands you placed in it, or else log out and log back in to achieve the same effect. 
+Usage
+Now you can use our tool to generate meta-invariants.  Suppose you want to generate meta-invariants for a test subject program ABC.  
+1. Compile ABC with the -g switch to enable debugging symbols.  
+javac -g ...
+2. Run the unit tests on ABC using the Chicory front end: 
+java daikon.Chicory [chicory-options] MyTestClass
+Make sure all the required library and class files to run ABC are included in the classpath.  Chicory can be configured as described in
+http://groups.csail.mit.edu/pag/daikon/download/doc/daikon.html#Chicory-options
+It is worth noting Chicory tries to record every variable values in a data file.  When a large number of test cases need to be run, Chicory can easily consume a large chunk of harddisk space in compressed format.  It is helpful to use the option –ppt-select-pattern and –ppt-omit-pattern here to only record variables values for the methods you are interested in.
+If you use a test framework (such as JUnit and Maven Surefire plug-in), you may not be able to directly invoke daikon.Chicory because you need to invoke the test driver first.    You can then load the "Java agent" to JVM which provides instrumentation access to Chicory (it's all inside $GetMetaInvDIR/lib/ChicoryPremain.jar).   Specifically:
+When using JUnit command line driver org.junit.runner.JUnitCore, run Chicory via the command
+java  -javaagent:$GetMetaInvDIR/lib/ChicoryPremain.jar=[chicory-options]  org.junit.runner.JUnitCore testclasses
+When using the <junit> element in a build.xml script, it is important to make fork “on” to run the tests in a separate VM. Also, you may need to specify the locations of required jars using a <classpath> element if the test subject program overrides any setting of the CLASSPATH environment variable.   The following is a sample:
+<junit fork="on" forkmode="perTest" > 
+    <classpath> 
+        <pathelement location="${jdk.tools.jar}"/> 
+        <pathelement location="${junit.dir}/junit.jar"/> 
+        <pathelement location="${getmetainv.basedir}/getmetainv.jar"/> 
+        <fileset dir="${getmetainv.lib.dir}" includes="ChicoryPremain.jar,bcel.jar,java-getopt.jar,checkers-quals.jar,commons-io.jar,plume.jar,typequals.jar,utilMDE-20091207.jar"/> 
+    </classpath> 
+    <jvmarg value="-javaagent:${getmetainv.lib.dir}/ChicoryPremain.jar=[chicory-options]"/> 
+     <batchtest ...> 
+         <!-- Define a number of tests based on pattern matching. -->
+        ...
+    </batchtest> 
+</junit> 
+When using Maven,you can use the following sample  pom.xml file:
+<plugin>
+    <artifactId>maven-surefire-plugin</artifactId>
+    <configuration>
+        <argLine>
+        -javaagent:${getmetainv.basedir}/lib/ChicoryPremain.jar=[chicory-options]
+        </argLine>
+        <additionalClasspathElements>
+        <additionalClasspathElement>
+	  ${getmetainv.lib.dir}/bcel.jar
+        </additionalClasspathElement>
+        <additionalClasspathElement>
+	  ${getmetainv.lib.dir}/java-getopt.jar
+        </additionalClasspathElement>
+                <additionalClasspathElement>
+	  ${getmetainv.lib.dir}/checkers-quals.jar
+        </additionalClasspathElement>
+        <additionalClasspathElement>
+	  ${getmetainv.lib.dir}/commons-io.jar
+        </additionalClasspathElement>
+        <additionalClasspathElement>
+	  ${getmetainv.lib.dir}/plume.jar
+        </additionalClasspathElement>
+        <additionalClasspathElement>
+	  ${getmetainv.lib.dir}/typequals.jar
+        </additionalClasspathElement>
+        <additionalClasspathElement>
+	  ${getmetainv.lib.dir}/utilMDE-20091207.jar
+        </additionalClasspathElement>
+                <additionalClasspathElement>
+	  ${jdk.tools.jar}
+        </additionalClasspathElement>
+        <additionalClasspathElement>
+	  <pathelement location="${getmetainv.basedir}/getmetainv.jar"/> 
+        </additionalClasspathElement>
+                <additionalClasspathElement>
+	  <pathelement location="$${getmetainv.lib.dir}/ChicoryPremain.jar"/> 
+        </additionalClasspathElement>
+        </additionalClasspathElements>
+    </configuration>
+</plugin>
+
+3. Normalise parameters so that all parameters's name in the dtrace file are based on their position (1st, 2nd, ...) in the parameter list.   You must have awk installed to run our awk script.
+zcat MyTestClass.dtrace.gz | gawk -f $GetMetaInvDIR/normalise-parameters.awk | gzip > NMyTestClass.dtrace.gz
+4. Pass the normalised dtrace file to our modified Daikon and use –suppress_redundant to invoke Simplify automatic theorem prover.  You can supply multiple dtrace files to our tool as well. See Daikon's configuration options ( http://groups.csail.mit.edu/pag/daikon/download/doc/daikon.html#Configuration-options).  Our modified Daikon prints the inferred meta-invariants and invariants to standard output.  The original invariants are also printed.
+java daikon.Daikon --suppress_redundant [daikon-options] NMyTestClass.dtrace.gz
