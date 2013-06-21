@@ -19,7 +19,7 @@
  # After editing your shell initialization file, either execute the commands you placed in it, or else log out and log back in to achieve the same effect. 
 Usage
 
-== Usage ==
+= Usage =
 
 Now you can use our tool to generate meta-invariants.  Suppose you want to generate meta-invariants for a test subject program ABC.  
  # Compile ABC with the -g switch to enable debugging symbols.  
