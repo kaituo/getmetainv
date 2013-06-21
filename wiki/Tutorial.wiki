@@ -17,7 +17,6 @@
 	  export PATH=$SimplifyDIR:$JAVA_HOME/bin:$PATH
           }}}
  # After editing your shell initialization file, either execute the commands you placed in it, or else log out and log back in to achieve the same effect. 
-Usage
 
 = Usage =
 
