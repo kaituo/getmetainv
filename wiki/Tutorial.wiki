@@ -46,7 +46,7 @@ Now you can use our tool to generate meta-invariants.  Suppose you want to gener
    If you use a test framework (such as JUnit and Maven Surefire plug-in), you may not be able to directly invoke daikon.Chicory because you need to invoke the test driver first. You can then load the "Java agent" to JVM which provides instrumentation access to Chicory (it's all inside $GetMetaInvDIR/lib/ChicoryPremain.jar). Specifically:
      * When using JUnit command line driver org.junit.runner.JUnitCore, run Chicory via the command
      `java  -javaagent:$GetMetaInvDIR/lib/ChicoryPremain.jar=[chicory-options]  org.junit.runner.JUnitCore testclasses`
-     * When using the <junit> element in a build.xml script, it is important to make fork “on” to run the tests in a separate VM. Also, you may need to specify the locations of required jars using a <classpath> element if the test subject program overrides any setting of the CLASSPATH environment variable. The following is a sample:
+     * When using the `<junit>` element in a build.xml script, it is important to make fork “on” to run the tests in a separate VM. Also, you may need to specify the locations of required jars using a `<classpath>` element if the test subject program overrides any setting of the CLASSPATH environment variable. The following is a sample:
 {{{
 <junit fork="on" forkmode="perTest" > 
     <classpath> 
