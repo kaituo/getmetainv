@@ -1,5 +1,5 @@
 = Installation =
-The following installation instructions only work for Unix/Linux/MacOS system.  To perform an installation in Windows, please use CygWin.
+The following installation instructions work for Unix/Linux/MacOS system.  To perform an installation in Windows, please use Cygwin.
  # Choose the directory where you want to install our tool for inferring meta-invariants; we'll call this the GetMetaInvParent directory. In this directory, download and unpack getmetainv-binary-0.1.tar.gz.
     `tar zxf getmetainv-binary-0.1.tar.gz`
  # Download the Simplfy theorem prover version for your platform ([https://docs.google.com/file/d/0B2Usw02WBShXajMwNTBYRFNic2M/edit?usp=sharing Simplify-1.5.4.exe for Windows],[https://docs.google.com/file/d/0B2Usw02WBShXeV9fMGUtTnhyTU0/edit?usp=sharing Simplify-1.5.4.linux],[https://docs.google.com/file/d/0B2Usw02WBShXdk56ZXdIR0J5ZWs/edit?usp=sharing Simplify-1.5.4.macosx], [https://docs.google.com/file/d/0B2Usw02WBShXUlFfWGtYNmlQWEk/edit?usp=sharing Simplify-1.5.4.solaris], or [https://docs.google.com/file/d/0B2Usw02WBShXcUY1bl9hbUJHOEk/edit?usp=sharing Simplify-1.5.4.tru64]). Alternatively you can get Simplify also as part of ESC/Java2 or ESC/Java). Change the executable's name to Simplify and put it into the directory $SimplifyDIR ().  Make sure that execute permissions are set via this command: 
