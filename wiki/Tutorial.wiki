@@ -92,5 +92,5 @@ Now you can use our tool to generate meta-invariants.  Suppose you want to gener
 }}}
  # Normalise parameters so that all parameters's name in the dtrace file are based on their position (1st, 2nd, ...) in the parameter list.   You must have awk installed to run our awk script.
   `zcat MyTestClass.dtrace.gz | gawk -f $GetMetaInvDIR/normalise-parameters.awk | gzip > NMyTestClass.dtrace.gz`
- # Pass the normalised dtrace file to our modified Daikon and use –suppress_redundant to invoke Simplify automatic theorem prover.  You can supply multiple dtrace files to our tool as well. See [http://groups.csail.mit.edu/pag/daikon/download/doc/daikon.html#Configuration-options Daikon's configuration options].  Our modified Daikon prints the inferred meta-invariants and invariants to standard output.  The original invariants are also printed.
+ # Pass the normalised dtrace file to our modified Daikon and use –suppress_redundant to invoke Simplify automatic theorem prover.  You can supply multiple dtrace files to our tool as well. See [http://groups.csail.mit.edu/pag/daikon/download/doc/daikon.html#Configuration-options Daikon's configuration options].  Our modified Daikon prints the inferred meta-invariants to the standard output.  The original invariants are also printed.
   `java daikon.Daikon --suppress_redundant [daikon-options] NMyTestClass.dtrace.gz`
