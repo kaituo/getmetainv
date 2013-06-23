@@ -5,7 +5,7 @@ The following installation instructions work for Unix/Linux/MacOS system.  To pe
  # Download the Simplfy theorem prover version for your platform ([https://docs.google.com/file/d/0B2Usw02WBShXajMwNTBYRFNic2M/edit?usp=sharing Simplify-1.5.4.exe for Windows],[https://docs.google.com/file/d/0B2Usw02WBShXeV9fMGUtTnhyTU0/edit?usp=sharing Simplify-1.5.4.linux],[https://docs.google.com/file/d/0B2Usw02WBShXdk56ZXdIR0J5ZWs/edit?usp=sharing Simplify-1.5.4.macosx], [https://docs.google.com/file/d/0B2Usw02WBShXUlFfWGtYNmlQWEk/edit?usp=sharing Simplify-1.5.4.solaris], or [https://docs.google.com/file/d/0B2Usw02WBShXcUY1bl9hbUJHOEk/edit?usp=sharing Simplify-1.5.4.tru64]). Change the executable's name to Simplify and put it into the directory $SimplifyDIR ().  Make sure that execute permissions are set via this command: 
     `chmod a+x Simplify` 
  # You must install the JDK in your operating system. The Java 6 is recommended.
- # Place the following five commands in your shell initialization file: set three environment variables, and update CLASSPATH and PATH environment variable.  For example,  edit ~/.bashrc or ~/.bash_profile if you use the sh or bash shell or their variants:
+ # Place the following five commands in your shell initialization file: set three environment variables, and update the environment variable CLASSPATH and PATH .  For example,  edit ~/.bashrc or ~/.bash_profile if you use the sh or bash shell or their variants:
           {{{
           # The full pathname of the directory that contains GetMetaInv
           export GetMetaInvDIR=...
