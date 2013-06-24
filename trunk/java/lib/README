@@ -1,0 +1,43 @@
+The easiest way to build and run Daikon is to put either java/, or else
+daikon.jar, on your classpath.
+
+For external libraries in this directory, we supply both the original
+distribution (for completeness) and also, if the original distribution is
+not a .jar file, the .jar file (for use by Java).
+
+BCEL 5.1 (bcel.jar)
+  - java class file reader/writer
+  - Our local changes partially support Java 1.5
+  - Built by jhp in ~jhp/research/jakarta-bcel
+    make bcel.jar
+
+Apache Commons IO components (commons-io.jar)
+- "Standard" library of IO utility
+- http://commons.apache.org/
+
+GNU getopt 1.0.8 (java-getopt.jar)
+- Command line option parser
+- Distributed with java files alongside class files in the jar file.
+  The java files must be stripped from the jar, otherwise jikes tries
+  to compile the java files inside the jar.
+  1. Download java-getopt-1.0.8.jar
+  2. "jar xf java-getopt-1.0.8.jar"
+  3. "cd gnu"
+  4. "rm `find . -name *.java`"
+  5. "cd .."
+  6. "jar cf java-getopt.jar gnu/"
+- http://www.urbanophile.com/arenn/coding/download.html
+
+JUnit (junit.jar)
+- Automated unit testing framework
+- http://www.junit.org
+
+plume-lib (plume.jar)
+- A library of useful abstractions for programming.
+- http://code.google.com/p/plume-lib/
+- Note to Daikon developers: you manually have to update plume.jar
+  with the correct build; this file is not automatically rebuilt from
+  the plume-lib source in the Daikon root directory!
+  plume.jar needs to be compiled with a JSR 308 compiler, so its annotations
+  are present in the .jar file.  However, it has to be compiled with "-target
+  5" or the like, so that it can be used by a Java 5 JVM.
