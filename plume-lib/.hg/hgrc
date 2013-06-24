@@ -1,0 +1,5 @@
+[paths]
+default = https://code.google.com/p/plume-lib/
+
+[trusted]
+groups = kaituo
