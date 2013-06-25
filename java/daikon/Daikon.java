@@ -582,7 +582,14 @@ public final class Daikon {
     if (suppress_redundant_invariants_with_simplify) {
       suppressWithSimplify(all_ppts);
       //kaituo
-      PptImpManager pim = new PptImpManager(0, 0);
+      String threshold = System.getProperty("successrate.threshold");
+      PptImpManager pim;
+      if (threshold == null)
+    	  pim = new PptImpManager(0.75, 0.75);
+      else {
+    	  double sthreshold = Double.parseDouble(threshold);
+    	  pim = new PptImpManager(sthreshold, sthreshold);
+      }
       pim.printPptConfidenceImps(pim.inferWithSimplify(all_ppts));
     }
 
@@ -2275,3 +2282,4 @@ public final class Daikon {
     }
   }
 }
+
